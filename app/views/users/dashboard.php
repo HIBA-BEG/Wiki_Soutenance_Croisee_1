@@ -3,66 +3,66 @@
 
 
   <!---===================== FIRST ROW CONTAINING THE  STATS CARD STARTS HERE =============================-->
-  <div class="flex justify-center flex-wrap py-10 p-14">
+  <div class="flex flex-wrap py-10 p-14 gap-10">
     <!---== First Stats Container ====--->
-    <div class="container mx-auto pr-4 m-4">
+    <div class=" max-w-2xl m-auto">
       <div
         class="w-72 bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
         <div class="h-20 bg-red-400 flex items-center justify-between">
-          <p class="mr-0 text-white text-lg pl-5">BT SUBSCRIBERS</p>
+          <p class="mr-0 text-white text-lg pl-5">Authors</p>
         </div>
         <div class="flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600">
           <p>TOTAL</p>
         </div>
-        <p class="py-4 text-3xl ml-5">20,456</p>
+        <p class="py-4 text-3xl ml-5"><?php echo $data['total_users']?></p>
         <!-- <hr > -->
       </div>
     </div>
     <!---== First Stats Container ====--->
 
     <!---== Second Stats Container ====--->
-    <div class="container mx-auto pr-4">
+    <div class=" max-w-2xl m-auto">
       <div
         class="w-72 bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
         <div class="h-20 bg-blue-500 flex items-center justify-between">
-          <p class="mr-0 text-white text-lg pl-5">BT ACTIVE SUBSCRIBERS</p>
+          <p class="mr-0 text-white text-lg pl-5">Categories</p>
         </div>
         <div class="flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600">
           <p>TOTAL</p>
         </div>
-        <p class="py-4 text-3xl ml-5">19,694</p>
+        <p class="py-4 text-3xl ml-5"><?php echo $data['total_categories']?></p>
         <!-- <hr > -->
       </div>
     </div>
     <!---== Second Stats Container ====--->
 
     <!---== Third Stats Container ====--->
-    <div class="container mx-auto pr-4">
+    <div class=" max-w-2xl m-auto">
       <div
         class="w-72 bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
         <div class="h-20 bg-purple-400 flex items-center justify-between">
-          <p class="mr-0 text-white text-lg pl-5">BT OPT OUTS</p>
+          <p class="mr-0 text-white text-lg pl-5">Wikis</p>
         </div>
         <div class="flex justify-between pt-6 px-5 mb-2 text-sm text-gray-600">
           <p>TOTAL</p>
         </div>
-        <p class="py-4 text-3xl ml-5">711</p>
+        <p class="py-4 text-3xl ml-5"><?php echo $data['total_wikis']?></p>
         <!-- <hr > -->
       </div>
     </div>
     <!---== Third Stats Container ====--->
 
     <!---== Fourth Stats Container ====--->
-    <div class="container mx-auto">
+    <div class=" max-w-2xl m-auto">
       <div
         class="w-72 bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
         <div class="h-20 bg-purple-900 flex items-center justify-between">
-          <p class="mr-0 text-white text-lg pl-5">BT TODAY'S SUBSCRIPTION</p>
+          <p class="mr-0 text-white text-lg pl-5">Tags</p>
         </div>
         <div class="flex justify-between pt-6 px-5 mb-2 text-sm text-gray-600">
           <p>TOTAL</p>
         </div>
-        <p class="py-4 text-3xl ml-5">0</p>
+        <p class="py-4 text-3xl ml-5"><?php echo $data['total_tags']?></p>
         <!-- <hr > -->
       </div>
     </div>

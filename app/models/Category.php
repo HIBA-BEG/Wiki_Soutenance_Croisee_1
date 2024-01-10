@@ -66,4 +66,16 @@
         return false;
       }
     }
+
+    public function getTotalCategories()
+    {
+      $this->db->query("SELECT COUNT(*) AS total_categories FROM categories");
+      
+      $row = $this->db->single();
+      
+      return $row;
+    }
+  
+    
+    
   }

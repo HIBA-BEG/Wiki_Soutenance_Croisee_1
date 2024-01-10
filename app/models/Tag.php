@@ -17,9 +17,10 @@
     }
 
     public function addTag($data){
-      $this->db->query('INSERT INTO categories (TagName, created_id) VALUES(:TagName, :created_id)');
+      $this->db->query('INSERT INTO categories (TagName, created_id, categoryId) VALUES(:TagName, :created_id, :categoryId)');
       // Bind values
       $this->db->bind(':TagName', $data['TagName']);
+      $this->db->bind(':categoryId', $data['categoryId']);
       $this->db->bind(':created_id', $_SESSION['id_user']);
 
       // Execute
@@ -34,6 +35,7 @@
       $this->db->query('UPDATE categories SET TagName = :TagName WHERE TagID  = :TagID ');
       // Bind values
       $this->db->bind(':TagID ', $data['TagID ']);
+      $this->db->bind(':categoryId', $data['categoryId']);
       $this->db->bind(':TagName', $data['TagName']);
 
       // Execute
@@ -65,4 +67,15 @@
         return false;
       }
     }
+    
+  public function getTotalTags()
+  {
+    $this->db->query("SELECT COUNT(*) AS total_tags FROM tags");
+    
+    $row = $this->db->single();
+
+    
+    return $row;
+  }
+  
   }

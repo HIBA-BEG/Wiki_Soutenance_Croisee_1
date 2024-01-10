@@ -72,4 +72,15 @@
         return false;
       }
     }
+
+    public function getTotalWikis()
+  {
+    $this->db->query("SELECT COUNT(*) AS total_wikis FROM wikis");
+    
+    $row = $this->db->single();
+    
+    return $row;
+  }
+
+  
   }

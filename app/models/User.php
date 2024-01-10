@@ -12,7 +12,7 @@ class User
   public function register($data)
   {
     $this->db->query('INSERT INTO users (Firstname, Lastname, Email, PasswordHash) VALUES(:first_name, :last_name, :email, :password)');
-  // Bind values
+    // Bind values
     $this->db->bind(':first_name', $data['Firstname']);
     $this->db->bind(':last_name', $data['Lastname']);
     $this->db->bind(':email', $data['Email']);
@@ -71,7 +71,7 @@ class User
     }
   }
   // Find user by email
-  
+
   // Get User by ID
   public function getUserById($id)
   {
@@ -84,7 +84,15 @@ class User
     return $row;
   }
 
+  public function getTotalUsers()
+  {
+    $this->db->query('SELECT COUNT(*) AS total_users FROM users where role = "Author" ');
 
+    $row = $this->db->single();
+
+    return $row;
+  }
+ 
 
 }
 

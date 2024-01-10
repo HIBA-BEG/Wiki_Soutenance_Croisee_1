@@ -2,9 +2,16 @@
 class Users extends Controller
 {
     private $userModel;
+    private $wikiModel;
+    private $tagModel;
+    private $categoryModel;
+
     public function __construct()
     {
         $this->userModel = $this->model('User');
+        $this->wikiModel = $this->model('Wiki');
+        $this->tagModel = $this->model('Tag');
+        $this->categoryModel = $this->model('Category');
     }
 
 //     public function index()
@@ -102,14 +109,6 @@ class Users extends Controller
         }
     }
 
-    public function dashboard()
-    {
-        $data = [
-            'title' => 'SharePosts',
-            'description' => 'Simple social network built on the TraversyMVC PHP framework'
-          ];
-          $this->view('users/dashboard', $data);
-    }
     public function login()
     {
         // Check for POST
@@ -185,11 +184,11 @@ class Users extends Controller
         $_SESSION['email'] = $user['Email'];
         $_SESSION['last_name'] = $user['Lastname'];
         $_SESSION['first_name'] = $user['Firstname'];
-        if ($user['role'] == 'Admin') {
-            $_SESSION['role'] = $user['role'];
+        $_SESSION['role'] = $user['role'];
+        if ($_SESSION['role']  == 'Admin') {
+            
             redirect('users/dashboard');
-        } else if ($user['role'] == 'Author') {
-            $_SESSION['role'] = $user['role'];
+        } else {
             redirect('wikis');
         }
       }
@@ -205,6 +204,29 @@ class Users extends Controller
         redirect('pages/index');
     }
 
+    public function dashboard()
+    {
+        $totalUsersData = $this->userModel->getTotalUsers();
+        $totalWikisData = $this->wikiModel->getTotalWikis();
+        $totalCategoriesData = $this->categoryModel->getTotalCategories();
+        $totalTagsData = $this->tagModel->getTotalTags();
+        $data = [
+            'total_users' => $totalUsersData['total_users'],
+            'total_wikis' => $totalWikisData['total_wikis'],
+            'total_categories' => $totalCategoriesData['total_categories'],
+            'total_tags' => $totalTagsData['total_tags']
+          ];
+          $this->view('users/dashboard', $data);
+    }
+
+    // public function getTotalUsers()
+    // {
+    //     $data = [
+    //         '' => '',
+    //         '' => ''
+    //       ];
+    //       $this->view('users/dashboard', $data);
+    // }
 
 
 }

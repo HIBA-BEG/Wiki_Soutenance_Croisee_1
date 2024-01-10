@@ -66,7 +66,7 @@ class Wikis extends Controller
         }
       } else {
         // Load view with errors
-        $this->view('wikis/add', $data);
+        $this->view('wikis/index', $data);
       }
     } else {
       $data = [
@@ -76,7 +76,7 @@ class Wikis extends Controller
         'CategoryID_err' => ''
       ];
 
-      $this->view('wikis/add', $data);
+      $this->view('wikis/index', $data);
     }
   }
 

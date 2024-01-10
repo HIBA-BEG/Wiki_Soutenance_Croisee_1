@@ -18,7 +18,7 @@
 	</div>
 	<ul
 		class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
-		<?php if (isset($_SESSION['role']) == 'Admin'): ?>
+		<?php if (isset($_SESSION['id_user']) && $_SESSION['role'] == 'Admin'): ?>
 			<li><a class="text-sm text-gray-400 hover:text-gray-500"
 					href="<?php echo URLROOT; ?>/users/dashboard">Dashboard</a></li>
 			<li class="text-gray-300">
