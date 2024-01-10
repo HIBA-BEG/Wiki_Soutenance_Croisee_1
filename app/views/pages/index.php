@@ -3,7 +3,7 @@
 
   
 <!-- component -->
-<div class="flex flex-wrap gap-10">
+<div class="flex flex-wrap py-10 p-14 gap-10">
 
   <div class="max-w-2xl mx-auto">
     

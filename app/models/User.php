@@ -11,13 +11,12 @@ class User
   // Regsiter user
   public function register($data)
   {
-    $this->db->query('INSERT INTO users (Firstname, Lastname, Email, PasswordHash, UserRole) VALUES(:first_name, :last_name, :email, :password, :userRole)');
+    $this->db->query('INSERT INTO users (Firstname, Lastname, Email, PasswordHash) VALUES(:first_name, :last_name, :email, :password)');
   // Bind values
     $this->db->bind(':first_name', $data['Firstname']);
     $this->db->bind(':last_name', $data['Lastname']);
     $this->db->bind(':email', $data['Email']);
     $this->db->bind(':password', $data['PasswordHash']);
-    $this->db->bind(':userRole', $data['userRole']);
 
     // Execute
     if ($this->db->execute()) {

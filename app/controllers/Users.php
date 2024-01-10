@@ -7,6 +7,16 @@ class Users extends Controller
         $this->userModel = $this->model('User');
     }
 
+//     public function index()
+//   {
+//     $users = $this->userModel->getUser();
+//     $data = [
+//       'users' => $users,
+//     ];
+
+//     $this->view('users/dashboard', $data);
+//   }
+
     public function register()
     {
         // Check for POST
@@ -21,7 +31,6 @@ class Users extends Controller
                 'Lastname' => trim($_POST['Lastname']),
                 'Email' => trim($_POST['Email']),
                 'PasswordHash' => $_POST['PasswordHash'],
-                'UserRole' => $_POST['UserRole'],
                 'first_name_err' => '',
                 'last_name_err' => '',
                 'email_err' => '',
@@ -81,7 +90,6 @@ class Users extends Controller
                 'Lastname' => '',
                 'Email' => '',
                 'PasswordHash' => '',
-                'UserRole' => '',
                 'first_name_err' => '',
                 'last_name_err' => '',
                 'DateOfBirth_err' => '',
@@ -94,116 +102,109 @@ class Users extends Controller
         }
     }
 
-    // public function login()
-    // {
-    //     // Check for POST
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         // Process form
-    //         // Sanitize POST data
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    public function dashboard()
+    {
+        $data = [
+            'title' => 'SharePosts',
+            'description' => 'Simple social network built on the TraversyMVC PHP framework'
+          ];
+          $this->view('users/dashboard', $data);
+    }
+    public function login()
+    {
+        // Check for POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Process form
+            // Sanitize POST data
+    
+            // Init data
+            $data = [
+                'Email' => $_POST['Email'],
+                'PasswordHash' => $_POST['PasswordHash'],
+                'email_err' => '',
+                'password_err' => '',
+            ];
+    
+            // Validate Email
+            if (empty($data['Email'])) {
+                $data['email_err'] = 'Please enter email';
+            }
+    
+            // Validate Password
+            if (empty($data['PasswordHash'])) {
+                $data['password_err'] = 'Please enter password';
+            }
+    
+            // Check for user/email
+            $user = $this->userModel->findUserByEmail($data['Email']);
+    
+            if ($user) {
+                // echo $_POST['PasswordHash'];
+                // echo $user['PasswordHash'];
+                // User found, check password
+                if (password_verify($_POST['PasswordHash'], $user['PasswordHash'])) {
+                    // Password is correct, set up the session
+                    echo "this is correct :)";
+                    $this->createUserSession($user);
+                } else {
+                    echo "this aint correct";
+                    // Password incorrect
+                    $data['password_err'] = 'Password incorrect';
+                }
+            } else {
+                // User not found
+                $data['email_err'] = 'No user found';
+            }
+    
+            // Check for errors
+            if (empty($data['email_err']) && empty($data['password_err'])) {
+                // Validated, login successful
+                // Redirect or do other actions as needed
+                // echo 'Login successful';
+            } else {
+                // Load view with errors
+                $this->view('users/login', $data);
+            }
+        } else {
+            // Init data
+            $data = [
+                'Email' => '',
+                'PasswordHash' => '',
+                'email_err' => '',
+                'password_err' => '',
+            ];
+    
+            // Load view
+            $this->view('users/login', $data);
+        }
+    }
 
-    //         // Init data
-    //         $data = [
-    //             'Email' => trim($_POST['Email']),
-    //             'password' => trim($_POST['PasswordHash']),
-    //             'email_err' => '',
-    //             'password_err' => '',
-    //         ];
 
-    //         // Validate Email
-    //         if (empty($data['Email'])) {
-    //             $data['email_err'] = 'Please enter email';
-    //         }
+    public function createUserSession($user){
+        $_SESSION['id_user'] = $user['UserID'];
+        $_SESSION['email'] = $user['Email'];
+        $_SESSION['last_name'] = $user['Lastname'];
+        $_SESSION['first_name'] = $user['Firstname'];
+        if ($user['role'] == 'Admin') {
+            $_SESSION['role'] = $user['role'];
+            redirect('users/dashboard');
+        } else if ($user['role'] == 'Author') {
+            $_SESSION['role'] = $user['role'];
+            redirect('wikis');
+        }
+      }
 
-    //         // Validate Password
-    //         if (empty($data['PasswordHash'])) {
-    //             $data['password_err'] = 'Please enter password';
-    //         }
+    public function logout()
+    {
+        unset($_SESSION['id_user']);
+        unset($_SESSION['email']);
+        unset($_SESSION['first_name']);
+        unset($_SESSION['last_name']);
+        unset($_SESSION['role']);
+        session_destroy();
+        redirect('pages/index');
+    }
 
-    //         // Check for user/email
-    //         $userExists = $this->userModel->findUserByEmail($data['Email']);
 
-    //         if ($userExists) {
-    //             // User found
-    //             // Send verification email and get the verification code
-    //             $verificationCodeSent = $this->userModel->sendVerificationEmail($data['Email']);
 
-    //             if ($verificationCodeSent) {
-    //                 // Pass the verification code to the view
-    //                 $data['verificationCode'] = $verificationCodeSent;
-
-    //                 // Load view with verification code input
-    //                 $this->view('users/verify', $data);
-    //             } else {
-    //                 // Handle email sending error
-    //                 $data['email_err'] = 'Unable to send verification email. Please try again later.';
-    //                 $this->view('users/login', $data);
-    //             }
-    //         } else {
-    //             // User not found, redirect to the registration page
-    //             $data['email_err'] = 'Invalid email or password';
-    //             redirect('users/register');
-    //         }
-
-    //     } else {
-    //         // Init data
-    //         $data = [
-    //             'Email' => '',
-    //             'PasswordHash' => '',
-    //             'email_err' => '',
-    //             'password_err' => '',
-    //         ];
-
-    //         // Load view
-    //         $this->view('users/login', $data);
-    //     }
-    // }
-
-    // public function createUserSession($user)
-    // {
-    //     $_SESSION['UserID'] = $user['UserID'];
-    //     $_SESSION['email'] = $user['Email'];
-    //     $_SESSION['first_name'] = $user['FirstName'];
-    //     $_SESSION['last_name'] = $user['LastName'];
-    //     redirect('binance');
-    // }
-
-    // public function logout()
-    // {
-    //     unset($_SESSION['UserID']);
-    //     unset($_SESSION['email']);
-    //     unset($_SESSION['first_name']);
-    //     unset($_SESSION['last_name']);
-    //     session_destroy();
-    //     redirect('users/login');
-    // }
-
-    // public function verify()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         // Process form
-    //         $verificationCode = trim($_POST['verificationCode']);
-
-    //         // Check if the verification code is valid
-    //         $user = $this->userModel->verifyUserByCode($verificationCode);
-
-    //         if ($user) {
-    //             // // Update user status as verified (optional)
-    //             // $this->userModel->updateVerificationStatus($user->id);
-
-    //             // Create user session
-    //             $this->createUserSession($user);
-
-    //             flash('verify_success', 'Your email has been verified. Welcome!');
-    //             redirect('pages/index'); // Redirect to the dashboard or any other page
-    //         } else {
-    //             flash('verify_error', 'Invalid verification code. Please try again.');
-    //             $this->view('users/verify'); // Reload the verification page with an error message
-    //         }
-    //     } else {
-    //         // Redirect to the login page if accessed directly without a POST request
-    //         redirect('users/login');
-    //     }
-    // }
-   
 }
