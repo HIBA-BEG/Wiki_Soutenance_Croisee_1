@@ -3,45 +3,46 @@
 
 <div class="flex items-center">
     <!-- Open the modal using ID.showModal() method -->
-    <button class="btn flex items-center bg-pink-500 hover:bg-pink-600 text-white border-none m-6" onclick="add.showModal()">+ Add Wiki +</button>
+    <button class="btn flex items-center bg-pink-500 hover:bg-pink-600 text-white border-none m-6"
+        onclick="add.showModal()">+ Add Wiki +</button>
     <dialog id="add" class="modal">
         <div class="modal-box">
             <h3 class="font-bold text-lg">Add a WIKI !!</h3>
             <div class="modal-action">
-                <form method="dialog" method="post" action="<?php echo URLROOT; ?>/wikis/add">
+                <form method="post" action="<?php echo URLROOT; ?>/wikis/add">
                     <!-- if there is a button in form, it will close the modal -->
-					<div class="divide-y divide-gray-200">
-						<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-							<div class="relative">
-								<input placeholder="Enter your title"  id="Title" name="Title" type="text"
-									class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Title_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>" value="<?php echo $data['Title'] ?> "/>
-								
-								<span class="text-red-500">
-									<?php echo $data['Title_err']; ?>
-								</span>
-							</div>
-							<div class="relative">
-								<input placeholder="text"  id="Content" name="Content" type="text"
-									class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Content_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>" value="<?php echo $data['Content'] ?> "/>
-								<span class="text-red-500">
-									<?php echo $data['Content_err']; ?>
-								</span>
-							</div>
-							<div class="relative">
-								<input placeholder="Category ID"  id="CategoryID" name="CategoryID" type="text"
-									class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['CategoryID_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>" value="<?php echo $data['CategoryID'] ?>"/>
-								<span class="text-red-500">
-									<?php echo $data['CategoryID_err']; ?>
-								</span>
-							</div>
-							<div class="relative">
-								<button type="submit" value="add"
-									class="bg-pink-500 hover:bg-pink-600 text-white rounded-md px-2 py-1">ADD</button>
-							</div>
-
-
-						</div>
-					</div>
+                    <div class="divide-y divide-gray-200">
+                        <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                            <div class="relative">
+                                <input placeholder="Enter your title" id="Title" name="Title" type="text"
+                                    class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Title_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
+                                    value="<?php echo $data['Title'] ?> " />
+                                <span class="text-red-500">
+                                    <?php echo $data['Title_err'] ?>
+                                </span>
+                            </div>
+                            <div class="relative">
+                                <input placeholder="text" id="Content" name="Content" type="text"
+                                    class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Content_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
+                                    value="<?php echo $data['Content'] ?> " />
+                                <span class="text-red-500">
+                                    <?php echo $data['Content_err']; ?>
+                                </span>
+                            </div>
+                            <div class="relative">
+                                <input placeholder="Category ID" id="CategoryID" name="CategoryID" type="text"
+                                    class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['CategoryID_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
+                                    value="<?php echo $data['CategoryID'] ?>" />
+                                <span class="text-red-500">
+                                    <?php echo $data['CategoryID_err']; ?>
+                                </span>
+                            </div>
+                            <div class="relative">
+                                <button type="submit" value="add"
+                                    class="bg-pink-500 hover:bg-pink-600 text-white rounded-md px-2 py-1">ADD</button>
+                            </div>
+                        </div>
+                    </div>
                     <button class="btn">Close</button>
                 </form>
             </div>

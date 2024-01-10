@@ -20,7 +20,15 @@ class Wikis extends Controller
     $wikis = $this->wikiModel->getWiki();
     $data = [
       'wikis' => $wikis,
+      'Title' => '',
+      'Content' => '',
+      'CategoryID'=> '',
+      'creation_date' => date('Y-m-d'),
+      'Title_err' => '',
+      'Content_err' => '',
+      'CategoryID_err' => ''
     ];
+    
 
     $this->view('wikis/index', $data);
   }
@@ -43,6 +51,7 @@ class Wikis extends Controller
         'Content_err' => '',
         'CategoryID_err' => ''
       ];
+     
 
       // Validate data
       if (empty(trim($data['Title']))) {
@@ -66,6 +75,7 @@ class Wikis extends Controller
         }
       } else {
         // Load view with errors
+        
         $this->view('wikis/index', $data);
       }
     } else {
@@ -73,6 +83,8 @@ class Wikis extends Controller
         'Title' => '',
         'Content' => '',
         'creation_date' => date('Y-m-d'),
+        'Title_err' => '',
+        'Content_err' => '',
         'CategoryID_err' => ''
       ];
 
