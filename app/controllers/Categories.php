@@ -3,6 +3,8 @@ class categories extends Controller
 {
   private $categoryModel;
   private $userModel;
+  private $wikiModel;
+  private $tagModel;
 
   public function __construct()
   {
@@ -12,19 +14,9 @@ class categories extends Controller
 
     $this->categoryModel = $this->model('Category');
     $this->userModel = $this->model('User');
+    $this->wikiModel = $this->model('Wiki');
+    $this->tagModel = $this->model('Tag');
   }
-
-
-//   public function index()
-//   {
-//     $categories = $this->categoryModel->getCategory();
-//     $data = [
-//       'categories' => $categories,
-//     ];
-
-//     $this->view('categories/index', $data);
-//   }
-
 
   public function add()
   {
@@ -33,54 +25,38 @@ class categories extends Controller
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       $data = [
-        'AuthorID' => $_SESSION['user_id'],
-        'Title' => trim($_POST['Title']),
-        'Content' => trim($_POST['Content']),
-        'Creation_date' => date('Y-m-d'), // current timestamp
-        'LastModifiedDate' => date('Y-m-d'), // current timestamp
-        'CategoryID' => trim($_POST['CategoryID']),
-        'Title_err' => '',
-        'Content_err' => '',
-        'CategoryID_err' => ''
+        'CategoryName' => trim($_POST['CategoryName']),
+        'CategoryName_err' => ''
       ];
 
       // Validate data
-      if (empty(trim($data['Title']))) {
-        $data['Title_err'] = 'Please enter a title';
-      }
-      if (empty(trim($data['Content']))) {
-        $data['Content_err'] = 'Please enter a Content';
-      }
-      if (empty($data['CategoryID'])) {
-        $data['CategoryID_err'] = 'Please enter a category';
+      if (empty(trim($data['CategoryName']))) {
+        $data['CategoryName_err'] = 'Please enter a Category Name';
       }
 
       // Make sure no errors
-      if (empty(trim($data['Title_err'])) && empty(trim($data['Content_err'])) && empty(trim($data['CategoryID_err']))) {
+      if (empty(trim($data['CategoryName_err']))) {
         // Validated
         if ($this->categoryModel->addCategory($data)) {
-          flash('category_message', 'Category Added');
-          redirect('categories');
+          redirect('Users/dashboard');
         } else {
           die('Something went wrong');
         }
       } else {
         // Load view with errors
-        $this->view('categories/add', $data);
+        $this->view('Users/dashboard', $data);
       }
     } else {
       $data = [
-        'Title' => '',
-        'Content' => '',
-        'creation_date' => date('Y-m-d'),
-        'CategoryID_err' => ''
+        'CategoryName' => ''
       ];
 
-      $this->view('categories/add', $data);
+      $this->view('Users/dashboard', $data);
     }
   }
 
-  public function show($id){
+  public function show($id)
+  {
     $categories = $this->categoryModel->getCategoryById($id);
     $user = $this->categoryModel->getCategoryById($categories['user_id']);
 
@@ -89,7 +65,7 @@ class categories extends Controller
       'user' => $user
     ];
 
-    $this->view('categories/show', $data);
+    $this->view('Users/dashboard', $data);
   }
 
   public function edit($id)
@@ -100,75 +76,65 @@ class categories extends Controller
 
       $data = [
         // 'user_id' => '',
-        'WikiID' => $id,
-        'Title' => trim($_POST['Title']),
-        'Content' => trim($_POST['Content']),
-        'LastModifiedDate' => date('Y-m-d'), // current timestamp
-        'CategoryID' => trim($_POST['CategoryID']),
-        'Title_err' => '',
-        'Content_err' => ''
+        'CategoryID' => $id,
+        'CategoryName' => trim($_POST['CategoryName']),
+        'CategoryName_err' => ''
       ];
 
       // Validate data
-      if (empty(trim($data['Title']))) {
-        $data['Title_err'] = 'Please enter a title';
-      }
-      if (empty(trim($data['Content']))) {
-        $data['Content_err'] = 'Please enter a Content';
-      }
-      if (empty($data['CategoryID'])) {
-        $data['CategoryID_err'] = 'Please enter a date';
+      if (empty(trim($data['CategoryName']))) {
+        $data['CategoryName_err'] = 'Please enter a Category Name';
       }
 
       // Make sure no errors
-      if (empty(trim($data['Title_err'])) && empty(trim($data['Content_err'])) && empty(trim($data['CategoryID_err']))) {
+      if (empty(trim($data['CategoryName_err']))) {
         // Validated
         if ($this->categoryModel->editCategory($data)) {
-          flash('category_message', 'Category edited');
-          redirect('categories');
+          redirect('Users/dashboard');
         } else {
           die('Something went wrong');
         }
       } else {
         // Load view with errors
-        $this->view('categories/edit', $data);
+        $this->view('Users/dashboard', $data);
       }
     } else {
       $categories = $this->categoryModel->getCategoryById($id);
       $user = $this->categoryModel->getCategoryById($categories['user_id']);
 
       $data = [
-        'WikiID' => $id,
+        'CategoryID' => $id,
         'Title' => $categories['Title'],
         'Content' => $categories['Content'],
         'LastModifiedDate' => date('Y-m-d'), // current timestamp
         'CategoryID' => trim($_POST['CategoryID'])
       ];
 
-      $this->view('categories/edit', $data);
+      $this->view('Users/dashboard', $data);
     }
   }
 
 
 
-    public function delete($id){
-      if($_SERVER['REQUEST_METHOD'] == 'GET'){
-        // Get existing post from model
-        $categories = $this->categoryModel->getCategoryById($id);
+  public function delete($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+      // Get existing post from model
+      $categories = $this->categoryModel->getCategoryById($id);
 
-        // Check for owner
-        if($categories->user_id != $_SESSION['user_id']){
-          redirect('categories');
-        }
-
-        if($this->categoryModel->deleteCategory($id)){
-          flash('post_message', 'Category Removed');
-          redirect('categories');
-        } else {
-          die('Something went wrong');
-        }
-      } else {
-        redirect('categories');
+      // Check for owner
+      if ($categories->user_id != $_SESSION['user_id']) {
+        redirect('Users');
       }
+
+      if ($this->categoryModel->deleteCategory($id)) {
+        flash('post_message', 'Category Removed');
+        redirect('Users/dashboard');
+      } else {
+        die('Something went wrong');
+      }
+    } else {
+      redirect('Users');
     }
+  }
 }

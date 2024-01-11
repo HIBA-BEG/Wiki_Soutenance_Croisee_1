@@ -14,14 +14,14 @@ class Users extends Controller
         $this->categoryModel = $this->model('Category');
     }
 
-//     public function index()
+    //     public function index()
 //   {
 //     $users = $this->userModel->getUser();
 //     $data = [
 //       'users' => $users,
 //     ];
 
-//     $this->view('users/dashboard', $data);
+    //     $this->view('users/dashboard', $data);
 //   }
 
     public function register()
@@ -115,7 +115,7 @@ class Users extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
             // Sanitize POST data
-    
+
             // Init data
             $data = [
                 'Email' => $_POST['Email'],
@@ -123,20 +123,20 @@ class Users extends Controller
                 'email_err' => '',
                 'password_err' => '',
             ];
-    
+
             // Validate Email
             if (empty($data['Email'])) {
                 $data['email_err'] = 'Please enter email';
             }
-    
+
             // Validate Password
             if (empty($data['PasswordHash'])) {
                 $data['password_err'] = 'Please enter password';
             }
-    
+
             // Check for user/email
             $user = $this->userModel->findUserByEmail($data['Email']);
-    
+
             if ($user) {
                 // echo $_POST['PasswordHash'];
                 // echo $user['PasswordHash'];
@@ -154,7 +154,7 @@ class Users extends Controller
                 // User not found
                 $data['email_err'] = 'No user found';
             }
-    
+
             // Check for errors
             if (empty($data['email_err']) && empty($data['password_err'])) {
                 // Validated, login successful
@@ -172,26 +172,27 @@ class Users extends Controller
                 'email_err' => '',
                 'password_err' => '',
             ];
-    
+
             // Load view
             $this->view('users/login', $data);
         }
     }
 
 
-    public function createUserSession($user){
+    public function createUserSession($user)
+    {
         $_SESSION['id_user'] = $user['UserID'];
         $_SESSION['email'] = $user['Email'];
         $_SESSION['last_name'] = $user['Lastname'];
         $_SESSION['first_name'] = $user['Firstname'];
         $_SESSION['role'] = $user['role'];
-        if ($_SESSION['role']  == 'Admin') {
-            
+        if ($_SESSION['role'] == 'Admin') {
+
             redirect('users/dashboard');
         } else {
             redirect('wikis');
         }
-      }
+    }
 
     public function logout()
     {
@@ -210,13 +211,18 @@ class Users extends Controller
         $totalWikisData = $this->wikiModel->getTotalWikis();
         $totalCategoriesData = $this->categoryModel->getTotalCategories();
         $totalTagsData = $this->tagModel->getTotalTags();
+        $categories = $this->categoryModel->getCategory();
         $data = [
+            'categories'=> $categories,
             'total_users' => $totalUsersData['total_users'],
             'total_wikis' => $totalWikisData['total_wikis'],
             'total_categories' => $totalCategoriesData['total_categories'],
-            'total_tags' => $totalTagsData['total_tags']
-          ];
-          $this->view('users/dashboard', $data);
+            'total_tags' => $totalTagsData['total_tags'],
+            'CategoryName' => '',
+            'CategoryName_err' => ''
+
+        ];
+        $this->view('users/dashboard', $data);
     }
 
     // public function getTotalUsers()

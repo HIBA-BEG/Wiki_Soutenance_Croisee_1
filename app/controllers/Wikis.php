@@ -41,10 +41,10 @@ class Wikis extends Controller
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       $data = [
-        'AuthorID' => $_SESSION['user_id'],
+        'AuthorID' => $_SESSION['id_user'],
         'Title' => trim($_POST['Title']),
         'Content' => trim($_POST['Content']),
-        'Creation_date' => date('Y-m-d'), // current timestamp
+        'CreationDate' => date('Y-m-d'), // current timestamp
         'LastModifiedDate' => date('Y-m-d'), // current timestamp
         'CategoryID' => trim($_POST['CategoryID']),
         'Title_err' => '',
@@ -82,7 +82,7 @@ class Wikis extends Controller
       $data = [
         'Title' => '',
         'Content' => '',
-        'creation_date' => date('Y-m-d'),
+        'CreationDate' => date('Y-m-d'),
         'Title_err' => '',
         'Content_err' => '',
         'CategoryID_err' => ''

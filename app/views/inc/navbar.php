@@ -112,12 +112,12 @@
 		<div class="mt-auto">
 			<div class="pt-6">
 				<?php if (isset($_SESSION['id_user'])): ?>
-					<a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl"
+					<a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-pink-500 hover:bg-pink-600  rounded-xl"
 						href="<?php echo URLROOT; ?>/users/logout">Logout</a>
 				<?php else: ?>
 					<a class="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"
 						href="<?php echo URLROOT; ?>/users/login">Log in</a>
-					<a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl"
+					<a class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-pink-500 hover:bg-pink-600  rounded-xl"
 						href="<?php echo URLROOT; ?>/users/register">Register</a>
 				<?php endif; ?>
 			</div>

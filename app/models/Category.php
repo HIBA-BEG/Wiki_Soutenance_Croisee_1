@@ -4,8 +4,13 @@
 
     public function __construct(){
       $this->db = new Database;
+
+      // $this->categoryModel = $this->model('Category');
     }
 
+    
+  
+ 
     public function getCategory(){
       $this->db->query('SELECT * FROM categories 
       INNER JOIN users 
