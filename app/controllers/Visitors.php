@@ -1,5 +1,5 @@
 <?php
-  class Pages extends Controller {
+  class Visitors extends Controller {
 
     private $wikiModel;
     public function __construct(){
@@ -23,15 +23,7 @@
       'CategoryID_err' => ''
     ];
 
-    $this->view('pages/index', $data);
+    $this->view('visitors/index', $data);
     }
 
-    public function about(){
-      $data = [
-        'title' => 'About Us',
-        'description' => 'App to share posts with other users'
-      ];
-
-      $this->view('pages/about', $data);
-    }
   }

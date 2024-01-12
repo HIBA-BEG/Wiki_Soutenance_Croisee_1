@@ -202,7 +202,7 @@ class Users extends Controller
         unset($_SESSION['last_name']);
         unset($_SESSION['role']);
         session_destroy();
-        redirect('pages/index');
+        redirect('visitors/index');
     }
 
     public function dashboard()

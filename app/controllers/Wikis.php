@@ -3,6 +3,8 @@ class Wikis extends Controller
 {
   private $wikiModel;
   private $userModel;
+  private $tagModel;
+  private $categoryModel;
 
   public function __construct()
   {
@@ -12,14 +14,21 @@ class Wikis extends Controller
 
     $this->wikiModel = $this->model('Wiki');
     $this->userModel = $this->model('User');
+    $this->tagModel = $this->model('Tag');
+    $this->categoryModel = $this->model('Category');
   }
 
 
   public function index()
   {
     $wikis = $this->wikiModel->getWiki();
+    $categories = $this->categoryModel->getCategory();
+    $tags = $this->tagModel->getTag();
+
     $data = [
       'wikis' => $wikis,
+      'categories' => $categories,
+      'tags' => $tags,
       'Title' => '',
       'Content' => '',
       'CategoryID' => '',
@@ -209,7 +218,7 @@ class Wikis extends Controller
   {
     $wikis = $this->wikiModel->archiveWiki($wikiId);
     // Check for owner
-    if($wikis->id_user != $_SESSION['id_user']){
+    if ($wikis->id_user != $_SESSION['id_user']) {
       redirect('wikis');
     }
 

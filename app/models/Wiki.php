@@ -20,13 +20,14 @@
     }
 
     public function addWiki($data){
-      $this->db->query('INSERT INTO wikis (Title, Content, CreationDate, LastModifiedDate, AuthorID) VALUES(:Title, :Content, :CreationDate, :LastModifiedDate, :AuthorID)');
+      $this->db->query('INSERT INTO wikis (Title, Content, CreationDate, LastModifiedDate, AuthorID, CategoryID) VALUES(:Title, :Content, :CreationDate, :LastModifiedDate, :AuthorID, :CategoryID)');
       // Bind values
       $this->db->bind(':Title', $data['Title']);
       $this->db->bind(':Content', $data['Content']);
       $this->db->bind(':CreationDate', $data['CreationDate']);
       $this->db->bind(':LastModifiedDate', $data['LastModifiedDate']);
       $this->db->bind(':AuthorID', $_SESSION['id_user']);
+      $this->db->bind(':CategoryID', $data['CategoryID']);
 
       // Execute
       if($this->db->execute()){
