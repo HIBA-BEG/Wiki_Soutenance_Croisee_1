@@ -7,9 +7,7 @@
     }
 
     public function getTag(){
-      $this->db->query('SELECT * FROM categories 
-      INNER JOIN users 
-      where users.UserID = categories.created_id; ');
+      $this->db->query('SELECT * FROM tags INNER JOIN users where users.UserID = tags.created_id');
 
       $results = $this->db->resultSet();
 
@@ -17,10 +15,9 @@
     }
 
     public function addTag($data){
-      $this->db->query('INSERT INTO categories (TagName, created_id, categoryId) VALUES(:TagName, :created_id, :categoryId)');
+      $this->db->query('INSERT INTO tags (TagName, created_id) VALUES(:TagName, :created_id)');
       // Bind values
       $this->db->bind(':TagName', $data['TagName']);
-      $this->db->bind(':categoryId', $data['categoryId']);
       $this->db->bind(':created_id', $_SESSION['id_user']);
 
       // Execute
@@ -32,10 +29,9 @@
     }
 
     public function editTag($data){
-      $this->db->query('UPDATE categories SET TagName = :TagName WHERE TagID  = :TagID ');
+      $this->db->query('UPDATE tags SET TagName = :TagName WHERE TagID  = :TagID');
       // Bind values
-      $this->db->bind(':TagID ', $data['TagID ']);
-      $this->db->bind(':categoryId', $data['categoryId']);
+      $this->db->bind(':TagID', $data['TagID']);
       $this->db->bind(':TagName', $data['TagName']);
 
       // Execute
@@ -47,7 +43,7 @@
     }
 
     public function getTagById($id){
-      $this->db->query('SELECT * FROM categories WHERE TagID  = :id');
+      $this->db->query('SELECT * FROM tags WHERE TagID  = :id');
       $this->db->bind(':id', $id);
 
       $row = $this->db->single();
@@ -56,7 +52,7 @@
     }
 
     public function deleteTag($id){
-      $this->db->query('DELETE FROM categories WHERE TagID  = :id');
+      $this->db->query('DELETE FROM tags WHERE TagID  = :id');
       // Bind values
       $this->db->bind(':id', $id);
 

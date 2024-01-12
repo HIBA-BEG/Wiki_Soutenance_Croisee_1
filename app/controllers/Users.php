@@ -212,14 +212,19 @@ class Users extends Controller
         $totalCategoriesData = $this->categoryModel->getTotalCategories();
         $totalTagsData = $this->tagModel->getTotalTags();
         $categories = $this->categoryModel->getCategory();
+        $tags = $this->tagModel->getTag();
+        
         $data = [
             'categories'=> $categories,
+            'tags'=> $tags,
             'total_users' => $totalUsersData['total_users'],
             'total_wikis' => $totalWikisData['total_wikis'],
             'total_categories' => $totalCategoriesData['total_categories'],
             'total_tags' => $totalTagsData['total_tags'],
             'CategoryName' => '',
-            'CategoryName_err' => ''
+            'CategoryName_err' => '',
+            'TagName' => '',
+            'TagName_err' => ''
 
         ];
         $this->view('users/dashboard', $data);

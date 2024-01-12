@@ -80,7 +80,7 @@ class categories extends Controller
         'CategoryName' => trim($_POST['CategoryName']),
         'CategoryName_err' => ''
       ];
-
+  
       // Validate data
       if (empty(trim($data['CategoryName']))) {
         $data['CategoryName_err'] = 'Please enter a Category Name';
@@ -100,14 +100,10 @@ class categories extends Controller
       }
     } else {
       $categories = $this->categoryModel->getCategoryById($id);
-      $user = $this->categoryModel->getCategoryById($categories['user_id']);
 
       $data = [
         'CategoryID' => $id,
-        'Title' => $categories['Title'],
-        'Content' => $categories['Content'],
-        'LastModifiedDate' => date('Y-m-d'), // current timestamp
-        'CategoryID' => trim($_POST['CategoryID'])
+        'CategoryName' => $categories['CategoryName']
       ];
 
       $this->view('Users/dashboard', $data);

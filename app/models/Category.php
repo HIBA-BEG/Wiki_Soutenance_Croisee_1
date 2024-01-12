@@ -37,18 +37,19 @@
     }
 
     public function editCategory($data){
-      $this->db->query('UPDATE categories SET CategoryName = :CategoryName WHERE CategoryID  = :CategoryID ');
+      $this->db->query('UPDATE categories SET CategoryName = :CategoryName WHERE CategoryID = :CategoryID');
+      
       // Bind values
-      $this->db->bind(':CategoryID ', $data['CategoryID ']);
+      $this->db->bind(':CategoryID', $data['CategoryID']);
       $this->db->bind(':CategoryName', $data['CategoryName']);
-
+  
       // Execute
       if($this->db->execute()){
-        return true;
+          return true;
       } else {
-        return false;
+          return false;
       }
-    }
+  }
 
     public function getCategoryById($id){
       $this->db->query('SELECT * FROM categories WHERE CategoryID  = :id');
