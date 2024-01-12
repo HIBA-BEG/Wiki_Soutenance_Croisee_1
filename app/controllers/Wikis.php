@@ -22,13 +22,13 @@ class Wikis extends Controller
       'wikis' => $wikis,
       'Title' => '',
       'Content' => '',
-      'CategoryID'=> '',
+      'CategoryID' => '',
       'creation_date' => date('Y-m-d'),
       'Title_err' => '',
       'Content_err' => '',
       'CategoryID_err' => ''
     ];
-    
+
 
     $this->view('wikis/index', $data);
   }
@@ -51,7 +51,7 @@ class Wikis extends Controller
         'Content_err' => '',
         'CategoryID_err' => ''
       ];
-     
+
 
       // Validate data
       if (empty(trim($data['Title']))) {
@@ -75,7 +75,7 @@ class Wikis extends Controller
         }
       } else {
         // Load view with errors
-        
+
         $this->view('wikis/index', $data);
       }
     } else {
@@ -92,7 +92,8 @@ class Wikis extends Controller
     }
   }
 
-  public function show($id){
+  public function show($id)
+  {
     $wikis = $this->wikiModel->getWikiById($id);
     $user = $this->wikiModel->getWikiById($wikis['user_id']);
 
@@ -163,24 +164,63 @@ class Wikis extends Controller
 
 
 
-    public function delete($id){
-      if($_SERVER['REQUEST_METHOD'] == 'GET'){
-        // Get existing post from model
-        $wikis = $this->wikiModel->getWikiById($id);
+  public function delete($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+      // Get existing post from model
+      $wikis = $this->wikiModel->getWikiById($id);
 
-        // Check for owner
-        if($wikis->user_id != $_SESSION['user_id']){
-          redirect('wikis');
-        }
-
-        if($this->wikiModel->deleteWiki($id)){
-          flash('post_message', 'Wiki Removed');
-          redirect('wikis');
-        } else {
-          die('Something went wrong');
-        }
-      } else {
+      // Check for owner
+      if ($wikis->id_user != $_SESSION['id_user']) {
         redirect('wikis');
       }
+
+      if ($this->wikiModel->deleteWiki($id)) {
+        flash('post_message', 'Wiki Removed');
+        redirect('wikis');
+      } else {
+        die('Something went wrong');
+      }
+    } else {
+      redirect('wikis');
     }
+  }
+  public function archivehh($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+      // Get existing post from model
+      $wikis = $this->wikiModel->getWikiById($id);
+
+      // Check for owner
+      if ($wikis->id_user != $_SESSION['id_user']) {
+        redirect('wikis');
+      }
+
+      if ($this->wikiModel->archiveWiki($id)) {
+        redirect('wikis');
+      } else {
+        die('Something went wrong');
+      }
+    } else {
+      redirect('wikis');
+    }
+  }
+  public function archive($wikiId)
+  {
+    $wikis = $this->wikiModel->archiveWiki($wikiId);
+    // Check for owner
+    if($wikis->id_user != $_SESSION['id_user']){
+      redirect('wikis');
+    }
+
+    if ($this->wikiModel->archiveWiki($wikiId)) {
+      // Redirect or handle success
+      redirect('wikis/index');
+    } else {
+      // Handle failure
+      redirect('wikis/index');
+      die('Failed to archive the wiki.');
+    }
+  }
+
 }

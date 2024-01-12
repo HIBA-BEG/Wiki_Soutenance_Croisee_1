@@ -1,7 +1,9 @@
 <?php
   class Pages extends Controller {
+
+    private $wikiModel;
     public function __construct(){
-     
+      $this->wikiModel = $this->model('Wiki');
     }
     
     public function index(){
@@ -9,12 +11,19 @@
         redirect('Wikis');
       }
 
-      $data = [
-        'title' => 'SharePosts',
-        'description' => 'Simple social network built on the TraversyMVC PHP framework'
-      ];
-     
-      $this->view('pages/index', $data);
+      $wikis = $this->wikiModel->getWiki();
+    $data = [
+      'wikis' => $wikis,
+      'Title' => '',
+      'Content' => '',
+      'CategoryID' => '',
+      'creation_date' => date('Y-m-d'),
+      'Title_err' => '',
+      'Content_err' => '',
+      'CategoryID_err' => ''
+    ];
+
+    $this->view('pages/index', $data);
     }
 
     public function about(){

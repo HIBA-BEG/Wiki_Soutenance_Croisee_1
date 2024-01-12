@@ -10,6 +10,7 @@
       $this->db->query('SELECT * FROM wikis 
       INNER JOIN users 
       where users.UserID = wikis.AuthorID 
+      and isArchived = 0
       ORDER by wikis.LastModifiedDate ASC;
       ');
 
@@ -72,7 +73,20 @@
         return false;
       }
     }
+    public function archiveWiki($WikiID){
+      $this->db->query('UPDATE wikis SET isArchived	 = 1 WHERE WikiID  = :WikiID');
+      // Bind values
+      $this->db->bind(':WikiID', $WikiID);
+  
+      // Execute
+      if($this->db->execute()){
+        return true;
+      } else {
+        return false;
+      }
+    }
 
+    
     public function getTotalWikis()
   {
     $this->db->query("SELECT COUNT(*) AS total_wikis FROM wikis");
