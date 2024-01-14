@@ -171,8 +171,6 @@ class Wikis extends Controller
     }
   }
 
-
-
   public function delete($id)
   {
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -194,6 +192,7 @@ class Wikis extends Controller
       redirect('wikis');
     }
   }
+
   public function archivehh($id)
   {
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -214,6 +213,21 @@ class Wikis extends Controller
       redirect('wikis');
     }
   }
+
+  public function search($query)
+  {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+      if (empty($query)) {
+        $wikis = $this->wikiModel->getWiki();
+      } else {
+        $wikis = $this->wikiModel->searchWiki($query);
+      }
+      $data = json_encode($wikis);
+      echo $data;
+    }
+  }
+
+
   public function archive($wikiId)
   {
     $wikis = $this->wikiModel->archiveWiki($wikiId);
@@ -231,5 +245,50 @@ class Wikis extends Controller
       die('Failed to archive the wiki.');
     }
   }
+
+  // public function search()
+  // {
+  //   if (isset($_POST['input'])) {
+  //     $input = $_POST['input'];
+
+  //     $wikis = $this->wikiModel->found_wiki($input);
+
+
+  //     foreach ($wikis as $wiki) {
+  //       echo '<div  class="flex flex-col g-10 border-b-2 pb-8 border-gray-400">';
+  //       echo '<h2 class="text-4xl font-bold mt-4 mb-2">' . $wiki->Title . '</h2>';
+  //       echo '<p class="text-gray-700 mb-4">' . $wiki->Content . '.</p>';
+
+  //       if (!empty($wiki->TagNames)) {
+  //         echo '<div class="flex flex-wrap gap-2 mt-4">';
+  //         $tags = explode(", ", $wiki->TagNames);
+  //         foreach ($tags as $tag) {
+  //           echo '<span class="bg-gray-300 p-2 rounded">' . $tag . '</span>';
+  //         }
+  //         echo '</div>';
+  //       }
+
+  //       echo '<div class="mt-4">';
+  //       echo '<span class="bg-blue-300 p-2 rounded">' . $wiki->CategoryName . '</span>';
+  //       echo '</div>';
+
+  //       // Only show the buttons if the user is authenticated and owns the wiki
+  //       echo '<div class="mt-4 ml-auto">';
+  //       if ($wiki->AuthorID === $_SESSION['user_id'] && $_SESSION['UserRole'] == 'autheur') {
+  //         echo '<a href="' . URLROOT . '/wikis/edit/' . $wiki->WikiID . '" class="bg-green-500 text-white p-2 rounded">Update</a>';
+  //         echo '<a href="' . URLROOT . '/wikis/delete/' . $wiki->WikiID . '" class="bg-red-500 text-white p-2 rounded">Delete</a>';
+  //       }
+
+  //       if (isset($_SESSION['UserRole']) && $_SESSION['UserRole'] == 'admin') {
+  //         echo '<a href="' . URLROOT . '/wikis/archiver/' . $wiki->WikiID . '" class="bg-violet-500 text-white p-2 rounded">Archive</a>';
+  //       }
+  //       echo '  <a href=" ' . URLROOT . '/wikis/show/' . $wiki->WikiID . '" class="bg-blue-500 text-white p-2 rounded">Show More</a>';
+
+  //       echo '</div>';
+  //       echo '</div>';
+  //     }
+  //     ;
+  //   }
+  // }
 
 }

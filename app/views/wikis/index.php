@@ -1,7 +1,10 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
+<input type="text" id="searchBar" placeholder="search.....">
 <div class="flex items-center">
+    
+
     <!-- Open the modal using ID.showModal() method -->
     <?php if (isset($_SESSION['id_user']) && $_SESSION['role'] == 'Author'): ?>
         <button class="btn flex items-center bg-pink-500 hover:bg-pink-600 text-white border-none m-6"
@@ -15,15 +18,15 @@
                         <div class="divide-y divide-gray-200">
                             <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <label for="Title" class="text-white">Enter your title</label>
-                                <input id="Title" name="Title" type="text"
-                                    class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Title_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
+                                <input id="Title" name="Title" type="text" required
+                                    class=" h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Title_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
                                     value="<?php echo $data['Title'] ?> " />
                                 <span class="text-red-500">
                                     <?php echo $data['Title_err'] ?>
                                 </span>
                                 <label for="Content" class="text-white">Enter your content</label>
-                                <input id="Content" name="Content" type="text"
-                                    class="h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Content_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
+                                <input id="Content" name="Content" type="text" required
+                                    class=" h-10 w-full border-b-2 border-gray-300 text-pink-600 focus:outline-none <?php echo (!empty($data['Content_err'])) ? 'border-red-500 text-red-500' : 'border-none'; ?>"
                                     value="<?php echo $data['Content'] ?> " />
                                 <span class="text-red-500">
                                     <?php echo $data['Content_err']; ?>
@@ -70,6 +73,9 @@
                                         </svg>
                                     </div>
                                 </div>
+                                <input type="hidden" id="selected-tag-id" name="selected_tag_id" value="">
+                                <div id="selected-tag-names"></div>
+
                                 <button type="submit" value="add"
                                     class="bg-pink-500 hover:bg-pink-600 text-white rounded-md px-2 py-1">ADD</button>
                             </div>
@@ -81,14 +87,13 @@
         </dialog>
     <?php endif; ?>
     <!-- component -->
-    <div class="flex flex-wrap py-10 p-14 gap-10">
+    
+    <div class="flex flex-wrap py-10 p-14 gap-10" id="wikiContainer">
         <?php foreach ($data['wikis'] as $wiki): ?>
             <div class="max-w-2xl mx-auto">
 
                 <div class="bg-purple-900 shadow-md border border-gray-200 rounded-lg max-w-sm">
-                    <a href="#">
-                        <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
-                    </a>
+                    
                     <div class="p-5">
                         <a href="#">
                             <h5 class="text-white font-bold text-2xl tracking-tight mb-2">
@@ -177,5 +182,7 @@
         <?php endforeach; ?>
     </div>
 </div>
+
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
