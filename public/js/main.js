@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const currentPage = location.hre
+    const currentPage = location.href
     console.log(isAuthor)
     if (currentPage === 'http://localhost/Wiki_Soutenance_Croisee_1/wikis') {
         const search = document.querySelector('#searchBar')
@@ -7,13 +7,11 @@ $(document).ready(function () {
             const searchValue = search.value
             console.log(searchValue)
             $.ajax({
-                url: `http://localhost/Wiki_Soutenance_Croisee_1/wikis/search//${searchValue}`,
+                url: `http://localhost/Wiki_Soutenance_Croisee_1/wikis/search/${searchValue}`,
                 type: 'GET',
                 success: function (data) {
-
                     const wikis = JSON.parse(data)
                     displayWikis(wikis)
-
                  },
             })
         })
@@ -39,8 +37,7 @@ const displayWikis = (wikis) => {
                     </h5>
                 </a>
                 <p class="font-normal text-white mb-3">
-                    Content:
-                    <?php echo $wiki->Content ?>
+                    Content: ${wiki.Content}
                 </p>
                 <div class="flex space-x-2 text-white text-sm">
                     <!-- svg  -->
