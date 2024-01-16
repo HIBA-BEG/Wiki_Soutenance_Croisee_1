@@ -91,6 +91,7 @@
               <th class="py-4 px-6 font-bold uppercase text-sm text-white border-b border-grey-light">
                 Category
               </th>
+              <th></th>
               <th class="py-4 px-6 text-center font-bold uppercase text-sm text-white border-b border-grey-light">
                 <button
                   class=" lg:inline-block py-2 px-6 bg-pink-500 hover:bg-pink-600 text-sm text-white font-bold rounded-xl transition duration-200"
@@ -98,7 +99,7 @@
                 </button>
                 <dialog id="addCategory" class="modal">
                   <div class="modal-box">
-                    <h3 class="font-bold text-lg">Add a New Category</h3>
+                    <h3 class="font-bold text-black dark:text-white text-lg">Add a New Category</h3>
                     <div class="modal-action flex flex-col">
                       <form method="post" action="<?php echo URLROOT; ?>/categories/add">
                         <div
@@ -120,6 +121,7 @@
                   </div>
                 </dialog>
               </th>
+              
             </tr>
           </thead>
           <tbody>
@@ -189,6 +191,7 @@
               <th class="py-4 px-6 font-bold uppercase text-sm text-white border-b border-grey-light">
                 Tag
               </th>
+              <th></th>
               <th class="py-4 px-6 text-center font-bold uppercase text-sm text-white border-b border-grey-light">
                 <button
                   class=" lg:inline-block py-2 px-6 bg-pink-500 hover:bg-pink-600 text-sm text-white font-bold rounded-xl transition duration-200"

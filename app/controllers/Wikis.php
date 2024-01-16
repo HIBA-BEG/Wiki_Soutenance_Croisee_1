@@ -76,11 +76,20 @@ class Wikis extends Controller
       // Make sure no errors
       if (empty(trim($data['Title_err'])) && empty(trim($data['Content_err'])) && empty(trim($data['CategoryID_err']))) {
         // Validated
-        if ($this->wikiModel->addWiki($data)) {
-          flash('wiki_message', 'Wiki Added');
+        $id_wiki = $this->wikiModel->addWiki($data);
+        if ($id_wiki) {
+          $encoded_string = $_POST['selected_tag_id'];
+
+          // Decode the JSON string to an array
+
+          $decoded_string = json_decode(html_entity_decode($encoded_string));
+
+          $this->tagModel->add_wiki_tags($id_wiki, $decoded_string);
+
+
           redirect('wikis');
         } else {
-          die('Something went wrong');
+          die('Something went wrong ');
         }
       } else {
         // Load view with errors
@@ -122,6 +131,7 @@ class Wikis extends Controller
 
       $data = [
         // 'user_id' => '',
+        // 'AuthorID' => $_SESSION['id_user'],
         'WikiID' => $id,
         'Title' => trim($_POST['Title']),
         'Content' => trim($_POST['Content']),
@@ -138,15 +148,16 @@ class Wikis extends Controller
       if (empty(trim($data['Content']))) {
         $data['Content_err'] = 'Please enter a Content';
       }
-      if (empty($data['CategoryID'])) {
-        $data['CategoryID_err'] = 'Please enter a date';
-      }
 
       // Make sure no errors
-      if (empty(trim($data['Title_err'])) && empty(trim($data['Content_err'])) && empty(trim($data['CategoryID_err']))) {
+      if (empty(trim($data['Title_err'])) && empty(trim($data['Content_err']))) {
         // Validated
-        if ($this->wikiModel->editWiki($data)) {
-          flash('wiki_message', 'Wiki edited');
+        $this->wikiModel->editWiki($id, $data);
+        if ($this->tagModel->delete_tags($id)) {
+          $selectedTagsString = $_POST['selected_tag_id'];
+          // Decode the JSON string to an array
+          $decoded_string = json_decode(html_entity_decode($selectedTagsString));
+          $this->tagModel->add_wiki_tags($id, $decoded_string);
           redirect('wikis');
         } else {
           die('Something went wrong');
@@ -156,18 +167,24 @@ class Wikis extends Controller
         $this->view('wikis/edit', $data);
       }
     } else {
-      $wikis = $this->wikiModel->getWikiById($id);
-      $user = $this->wikiModel->getWikiById($wikis['user_id']);
-
+      $wiki = $this->wikiModel->getWikiById($id);
+      // $user = $this->wikiModel->getWikiById($wikis['id_user']);
+      $category = $this->categoryModel->getCategoryById($wiki['CategoryID']);
+      $tags = $this->tagModel->get_tags_wiki($id);
       $data = [
-        'WikiID' => $id,
-        'Title' => $wikis['Title'],
-        'Content' => $wikis['Content'],
+        'Wiki' => $wiki,
+        'category' => $category,
+        'tag' => $tags,
+        'categories' => $this->categoryModel->getCategory(),
+        'tags' => $this->tagModel->getTag(),
         'LastModifiedDate' => date('Y-m-d'), // current timestamp
-        'CategoryID' => trim($_POST['CategoryID'])
+        'CategoryID' => $wiki['CategoryID'],
+        'selected_tags' => '',
+        'titre_err' => '',
+        'description_err' => ''
       ];
 
-      $this->view('wikis/edit', $data);
+      $this->view('wikis/index', $data);
     }
   }
 
@@ -193,26 +210,26 @@ class Wikis extends Controller
     }
   }
 
-  public function archivehh($id)
-  {
-    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-      // Get existing post from model
-      $wikis = $this->wikiModel->getWikiById($id);
+  // public function archivehh($id)
+  // {
+  //   if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+  //     // Get existing post from model
+  //     $wikis = $this->wikiModel->getWikiById($id);
 
-      // Check for owner
-      if ($wikis->id_user != $_SESSION['id_user']) {
-        redirect('wikis');
-      }
+  //     // Check for owner
+  //     if ($wikis->id_user != $_SESSION['id_user']) {
+  //       redirect('wikis');
+  //     }
 
-      if ($this->wikiModel->archiveWiki($id)) {
-        redirect('wikis');
-      } else {
-        die('Something went wrong');
-      }
-    } else {
-      redirect('wikis');
-    }
-  }
+  //     if ($this->wikiModel->archiveWiki($id)) {
+  //       redirect('wikis');
+  //     } else {
+  //       die('Something went wrong');
+  //     }
+  //   } else {
+  //     redirect('wikis');
+  //   }
+  // }
 
   public function search($query)
   {

@@ -14,4 +14,4 @@
   </title>
 </head>
 
-<body class='bg-purple-100'>
+<body class='bg-purple-100 min-h-screen'>
