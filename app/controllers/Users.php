@@ -8,21 +8,16 @@ class Users extends Controller
 
     public function __construct()
     {
+        // if (!isset($_SESSION['id_user'])) {
+        //     redirect('users/login');
+        // }
+
         $this->userModel = $this->model('User');
         $this->wikiModel = $this->model('Wiki');
         $this->tagModel = $this->model('Tag');
         $this->categoryModel = $this->model('Category');
     }
 
-    //     public function index()
-//   {
-//     $users = $this->userModel->getUser();
-//     $data = [
-//       'users' => $users,
-//     ];
-
-    //     $this->view('users/dashboard', $data);
-//   }
 
     public function register()
     {
@@ -207,16 +202,19 @@ class Users extends Controller
 
     public function dashboard()
     {
+if (!isset($_SESSION['id_user'])) {
+            redirect('users/login');
+        }
         $totalUsersData = $this->userModel->getTotalUsers();
         $totalWikisData = $this->wikiModel->getTotalWikis();
         $totalCategoriesData = $this->categoryModel->getTotalCategories();
         $totalTagsData = $this->tagModel->getTotalTags();
         $categories = $this->categoryModel->getCategory();
         $tags = $this->tagModel->getTag();
-        
+
         $data = [
-            'categories'=> $categories,
-            'tags'=> $tags,
+            'categories' => $categories,
+            'tags' => $tags,
             'total_users' => $totalUsersData['total_users'],
             'total_wikis' => $totalWikisData['total_wikis'],
             'total_categories' => $totalCategoriesData['total_categories'],

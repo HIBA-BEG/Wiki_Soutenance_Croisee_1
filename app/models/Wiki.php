@@ -131,7 +131,7 @@ class Wiki
 
   public function searchWiki($query)
   {
-    $this->db->query("SELECT wikis.* , categories.CategoryName from wikis Join categories on wikis.CategoryID = categories.CategoryID where wikis.Title like :query OR categories.CategoryName like :query");
+    $this->db->query("SELECT wikis.* , categories.CategoryName from wikis Join categories on wikis.CategoryID = categories.CategoryID where wikis.Title like :query OR categories.CategoryName like :query and isArchived=0 ");
     $this->db->bind('query', '%' . $query . '%');
     $this->db->execute();
     return $this->db->resultSet();

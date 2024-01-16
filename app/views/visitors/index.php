@@ -4,9 +4,9 @@
 
 <!-- component -->
 <div class="flex flex-wrap py-10 p-14 gap-10">
-<div class="flex flex-wrap py-10 p-14 gap-10" id="wikiContainer">
-        <?php foreach ($data['wikis'] as $wiki): 
-            $wikitags= $wiki->wikitag;
+    <div class="flex flex-wrap py-10 p-14 gap-10" id="wikiContainer">
+        <?php foreach ($data['wikis'] as $wiki):
+            $wikitags = $wiki->wikitag;
             ?>
             <div class="max-w-2xl mx-auto">
 
@@ -62,17 +62,22 @@
                                 <?php echo $wiki->LastModifiedDate ?>
                             </p>
 
-                            
+
                         </div>
                         <div>
                             <?php foreach ($wikitags as $wikitag): ?>
-                       <div class="text-xs inline-flex items-center font-bold leading-sm px-3 py-1 bg-blue-200 text-mr px-4 py-1  rounded-full gap-1">
-                            <span>#</span>
-                            <p><?= $wikitag->TagName; ?></p>
+                                <div
+                                    class="text-xs inline-flex items-center font-bold leading-sm px-3 py-1 bg-blue-200 text-mr px-4 py-1  rounded-full gap-1">
+                                    <span>#</span>
+                                    <p>
+                                        <?= $wikitag->TagName; ?>
+                                    </p>
 
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                        <?php endforeach; ?>
-                        </div>
+                        <a href="<?php echo URLROOT; ?>/wikis/oneWiki/<?php echo $wiki->WikiID; ?>"
+                            class="font-normal underline text-white mb-3">See more</a>
                     </div>
                 </div>
             </div>

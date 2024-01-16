@@ -166,7 +166,7 @@
                         </div>
                         <div>
                             <?php foreach ($wikitags as $wikitag): ?>
-                                
+
                                 <div
                                     class="text-xs inline-flex items-center font-bold leading-sm px-3 py-1 bg-blue-200 text-mr px-4 py-1  rounded-full gap-1">
                                     <span>#</span>
@@ -177,7 +177,8 @@
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                        <a  href="<?php echo URLROOT; ?>/wikis/oneWiki/<?php echo $wiki->WikiID; ?>" class="font-normal underline text-white mb-3" >See more</a>
+                        <a href="<?php echo URLROOT; ?>/wikis/oneWiki/<?php echo $wiki->WikiID; ?>"
+                            class="font-normal underline text-white mb-3">See more</a>
                         <div class="flex justify-center p-2 flex-wrap">
                             <?php if (isset($_SESSION['id_user']) && $_SESSION['id_user'] === $wiki->UserID && $_SESSION['role'] === 'Author'): ?>
                                 <button
