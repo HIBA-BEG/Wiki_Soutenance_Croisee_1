@@ -13,7 +13,8 @@ class Wiki
     $this->db->query('SELECT * ,categories.CategoryName FROM wikis 
       INNER JOIN users on users.UserID = wikis.AuthorID 
       inner join categories on categories.CategoryID = wikis.CategoryID 
-      ORDER by wikis.LastModifiedDate ASC
+      where isArchived = 0
+      ORDER by wikis.LastModifiedDate desc
       ');
 
     $results = $this->db->resultSet();
@@ -53,6 +54,15 @@ class Wiki
       return false;
     }
   }
+  public function get_tags_wiki($id)
+  {
+    $this->db->query('SELECT * FROM tags join wikitags on wikitags.TagID = tags.TagID WHERE wikitags.WikiID=:WikiID');
+    $this->db->bind(':WikiID', $id);
+
+    $row = $this->db->resultSet();
+
+    return $row;
+  }
 
   public function editWiki($id,$data)
   {
@@ -74,7 +84,7 @@ class Wiki
 
   public function getWikiById($id)
   {
-    $this->db->query('SELECT * FROM wikis WHERE WikiID  = :id');
+    $this->db->query('SELECT * FROM wikis JOIN users on users.UserID = wikis.AuthorID JOIN categories ON wikis.CategoryID = categories.CategoryID WHERE wikis.WikiID = :id');
     $this->db->bind(':id', $id);
 
     $row = $this->db->single();

@@ -1,12 +1,12 @@
 $(document).ready(function () {
     const currentPage = location.href
-    console.log(isAuthor)
+    // console.log(isAuthor)
     if (currentPage === 'http://localhost/Wiki_Soutenance_Croisee_1/wikis') {
         const search = document.querySelector('#searchBar')
         search.addEventListener('keyup', () => {
             const searchValue = search.value
             console.log(searchValue)
-            
+    
             if (searchValue != "") {
                 $.ajax({
                     url: `http://localhost/Wiki_Soutenance_Croisee_1/wikis/search/${searchValue}`,
@@ -15,7 +15,7 @@ $(document).ready(function () {
                         const wikis = JSON.parse(data)
                         displayWikis(wikis)
                      },
-                     error: function(xhr, status, error) {
+                     error: function(status, error) {
                         console.error('Error fetching tasks:', status, error);
                     }
                 });

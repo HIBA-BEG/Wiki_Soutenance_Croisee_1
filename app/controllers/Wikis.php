@@ -23,12 +23,19 @@ class Wikis extends Controller
   {
     $wikis = $this->wikiModel->getWiki();
     $categories = $this->categoryModel->getCategory();
-    $tags = $this->tagModel->getTag();
+    $tagadd = $this->tagModel->getTag();
+   $wikitag=[];
+   foreach( $wikis as $wiki ) {
+    $tags = $this->wikiModel->get_tags_wiki($wiki->WikiID);
+    
+    $wiki->wikitag=$tags;
+    $wikitag[]=$wiki;
+   }
 
     $data = [
       'wikis' => $wikis,
       'categories' => $categories,
-      'tags' => $tags,
+      'tags'=>$tagadd,
       'Title' => '',
       'Content' => '',
       'CategoryID' => '',
@@ -37,9 +44,23 @@ class Wikis extends Controller
       'Content_err' => '',
       'CategoryID_err' => ''
     ];
-
-
+    
     $this->view('wikis/index', $data);
+  }
+
+  public function oneWiki($id)
+  {
+    $wiki= $this->wikiModel->getWikiById($id);
+    $tags = $this->wikiModel->get_tags_wiki($id);
+
+    $wiki['wikitag']=$tags ;
+   
+
+    $data = [
+      'wikis' => $wiki,
+    ];
+    
+    $this->view('wikis/oneWiki', $data);
   }
 
 
@@ -210,26 +231,6 @@ class Wikis extends Controller
     }
   }
 
-  // public function archivehh($id)
-  // {
-  //   if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-  //     // Get existing post from model
-  //     $wikis = $this->wikiModel->getWikiById($id);
-
-  //     // Check for owner
-  //     if ($wikis->id_user != $_SESSION['id_user']) {
-  //       redirect('wikis');
-  //     }
-
-  //     if ($this->wikiModel->archiveWiki($id)) {
-  //       redirect('wikis');
-  //     } else {
-  //       die('Something went wrong');
-  //     }
-  //   } else {
-  //     redirect('wikis');
-  //   }
-  // }
 
   public function search($query)
   {

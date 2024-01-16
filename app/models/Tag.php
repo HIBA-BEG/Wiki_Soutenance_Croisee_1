@@ -98,15 +98,23 @@ class Tag
     echo "Records inserted successfully.";
   }
 
-  public function get_tags_wiki($id)
+  public function get_tags_wiki()
   {
-    $this->db->query('SELECT * FROM tags join wikitags on wikitags.TagID = tags.TagID WHERE wikitags.WikiID=:WikiID');
-    $this->db->bind(':WikiID', $id);
+    $this->db->query('SELECT * FROM tags join wikitags on wikitags.TagID = tags.TagID');
 
     $row = $this->db->resultSet();
 
     return $row;
   }
+  // public function get_tags_wiki($id)
+  // {
+  //   $this->db->query('SELECT * FROM tags join wikitags on wikitags.TagID = tags.TagID WHERE wikitags.WikiID=:WikiID');
+  //   $this->db->bind(':WikiID', $id);
+
+  //   $row = $this->db->resultSet();
+
+  //   return $row;
+  // }
 
   public function delete_tags($id)
   {
