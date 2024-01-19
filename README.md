@@ -34,7 +34,7 @@ Les auteurs devraient pouvoir associer une seul catégorie et plusieurs tags à 
 ## Technologies utilisées:
 #### Technologie Frontend: 
 HTML5 <br>
-CSS Framework  Tailwind <br>
+CSS Framework: Tailwind <br>
 Javascript <br>
 
 #### Technologie Backend: 
