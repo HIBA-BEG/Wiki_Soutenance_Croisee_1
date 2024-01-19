@@ -1,25 +1,25 @@
 # Wiki™ : Explorez, Créez et Partagez des Savoirs Ensemble!
 
 ## Contexte du projet
-Wiki a besoin d'un système de gestionnaire de contenu efficace, associé à un front office, pour offrir une expérience utilisateur exceptionnelle.
-Ce système devrait permettre aux administrateurs de gérer facilement les catégories, les tags et les wikis, tout en offrant aux auteurs la possibilité de créer, modifier et supprimer leur propre contenu.
-Du côté du front office, l'accent sera mis sur une interface utilisateur, avec des fonctionnalités telles que l'inscription simplifiée, une barre de recherche efficace, et des affichages dynamiques des derniers wikis et catégories pour une navigation.
-L'objectif principal est de faire un endroit où tout le monde peut travailler ensemble, créer, trouver et partager des wikis de manière facile et intéressante.
+Wiki a besoin d'un système de gestionnaire de contenu efficace, associé à un front office, pour offrir une expérience utilisateur exceptionnelle. <br>
+Ce système devrait permettre aux administrateurs de gérer facilement les catégories, les tags et les wikis, tout en offrant aux auteurs la possibilité de créer, modifier et supprimer leur propre contenu. <br> 
+Du côté du front office, l'accent sera mis sur une interface utilisateur, avec des fonctionnalités telles que l'inscription simplifiée, une barre de recherche efficace, et des affichages dynamiques des derniers wikis et catégories pour une navigation. <br>
+L'objectif principal est de faire un endroit où tout le monde peut travailler ensemble, créer, trouver et partager des wikis de manière facile et intéressante. <br>
 ​
 
 ## Fonctionalités clés:
 
-**L'administrateur** doit avoir la capacité de créer, modifier et supprimer des catégories pour organiser le contenu.
-Il devrait étre possibe d'associer plusieurs wikis à une catégorie.
-L'administrateur doit pouvoir créer, modifier et supprimer des tags pour faciliter la recherche et le regroupement du contenu.
-Les tags doivent être associés aux wikis pour une navigation plus précise.
-Les administrateurs doivent avoir la possibilité d'archiver les wikis inappropriés pour maintenir un environnement sûr et pertinent.
-Dashboard: Consultation des statistiques des entités via le tableau de bord.
+**L'administrateur** doit avoir la capacité de créer, modifier et supprimer des catégories pour organiser le contenu. <br>
+Il devrait étre possibe d'associer plusieurs wikis à une catégorie. <br>
+L'administrateur doit pouvoir créer, modifier et supprimer des tags pour faciliter la recherche et le regroupement du contenu. <br>
+Les tags doivent être associés aux wikis pour une navigation plus précise. <br>
+Les administrateurs doivent avoir la possibilité d'archiver les wikis inappropriés pour maintenir un environnement sûr et pertinent. <br>
+Dashboard: Consultation des statistiques des entités via le tableau de bord. <br>
 
 
-**Les auteurs** doivent pouvoir s'inscrire sur la plateforme en fournissant des informations de base, telles que le nom, l'adresse e-mail et un mot de passe sécurisé.
-Les auteurs doivent avoir la capacité de créer, modifier et supprimer leurs propres wikis.
-Les auteurs devraient pouvoir associer une seul catégorie et plusieurs tags à leurs wikis pour faciliter l'organisation et la recherche.
+**Les auteurs** doivent pouvoir s'inscrire sur la plateforme en fournissant des informations de base, telles que le nom, l'adresse e-mail et un mot de passe sécurisé. <br>
+Les auteurs doivent avoir la capacité de créer, modifier et supprimer leurs propres wikis. <br>
+Les auteurs devraient pouvoir associer une seul catégorie et plusieurs tags à leurs wikis pour faciliter l'organisation et la recherche. <br>
 
 **Les visiteurs** peuvent accéder à la page home pour consulter les wikis
 
@@ -33,21 +33,21 @@ Les auteurs devraient pouvoir associer une seul catégorie et plusieurs tags à 
 ​
 ## Technologies utilisées:
 #### Technologie Frontend: 
-[https://img.shields.io/badge/<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>HTML5</title><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>_HTML-5_#E34F26](https://img.shields.io/badge/:badgeContent?logo=HTML&logoColor=%23E34F26&labelColor=%23E34F26
-)
-HTML5, CSS Framework et Javascript
+HTML5 <br>
+CSS Framework  Tailwind <br>
+Javascript <br>
 
 #### Technologie Backend: 
-PHP 8 
+PHP 8 <br>
 
-Architecture MVC:
--- Système de routage La mise en place d'un système de routage selon l'architecture Modèle-Vue-Contrôleur (MVC)
+Architecture MVC: <br>
+-- Système de routage La mise en place d'un système de routage selon l'architecture Modèle-Vue-Contrôleur (MVC) <br>
 
--- Autoload: inclure l'utilisation de namespace pour l'organisation des classes.
+-- Autoload: inclure l'utilisation de namespace pour l'organisation des classes. <br>
 
 #### Database: 
 PDO driver
 
 ## Liens:
-[Présentation](https://www.canva.com/design/DAF5sF9N7QI/c2Dw0bmwaXIDBu2dgS6FVQ/edit?utm_content=DAF5sF9N7QI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+[Présentation](https://www.canva.com/design/DAF5sF9N7QI/c2Dw0bmwaXIDBu2dgS6FVQ/edit?utm_content=DAF5sF9N7QI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) <br>
 [GitHub Repository](https://github.com/HIBA-BEG/Wiki_Soutenance_Croisee_1.git)
